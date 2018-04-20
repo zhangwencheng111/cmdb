@@ -1,0 +1,51 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<h1 class="page-header"><a href="{% url 'dev:add_script' %}" class="btn btn-sm btn-primary">Add script</a></h1>
+					<div class="table-responsive">
+
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>名称</th>
+										<th>脚本类型</th>
+										<th>环境</th>
+										<th>项目</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for dd in script_name %}
+									<form id="form" class="form-horizontal" method="post" action="{% url 'dev:ip_choise' %}"> 
+									{% csrf_token %}
+										<tr>
+											<td>{{dd}}</td>
+											<td>{{dd.script_type}}</td>
+											<td>{{dd.env}}</td>
+											<td>
+												<select class="form-control" name="dd">
+													{% for i in project %}
+														<option value="{{ i.id }}">{{ i }}</option>
+													{% endfor %}
+												</select>
+											</td>
+											<td>
+												<input type="submit" class="deploy btn btn-primary btn-xs" value="执行">
+												<a href="{% url 'dev:execute_srcipt' dd.id %}" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="bottom" title="执行">执行</a>
+												<a href="{% url 'dev:edit_script' dd.id %}" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="修改">修改</a>
+											</td>
+										</tr>
+									</form>
+									{% empty %}
+									{% endfor %}
+								</tbody>
+							</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endblock content %}
+
+

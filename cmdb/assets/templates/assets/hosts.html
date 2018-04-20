@@ -1,0 +1,46 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header"><a href="{% url 'add_host' %}" class="btn btn-sm btn-primary">Add host</a></h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>主机IP</th>
+                  <th>主机名</th>
+                  <th>环境</th>
+                  <th>项目</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              	{% for host in hosts_list %}
+                <tr>
+                  <td><a href="{% url 'host' host.uuid %}">{{host.ip_addr}}</a></td>
+                  <td>{{host.host_name}}</td>
+                  <td>{{host.environment}}</td>
+                  <td>
+                  {% for i in host.project.all %}
+                  <a href="{% url 'one_project' i.id %}" class="btn btn-xs btn-warning voilet_restart" data-toggle="tooltip" data-placement="bottom" title="{{i}}">{{i}}</a>
+                  {% empty %}
+                  
+                  {% endfor %}
+                  </td>
+                  <td>
+                  	<a href="{% url 'host' host.uuid %}" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="详情">详情</a>
+                  	<a href="{% url 'edit_host' host.uuid %}" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="修改">修改</a>
+                  </td>
+                </tr>
+                {% empty %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+

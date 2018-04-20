@@ -1,0 +1,37 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header"><a href="{% url 'add_project' %}" class="btn btn-sm btn-primary">添加项目</a></h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>项目名</th>
+                  <th>中文描述</th>
+                  <th>环境</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              	{% for a in projects_list %}
+                <tr>
+                  <td><a href="{% url 'one_project' a.id %}">{{a.project}}</a></td>
+                  <td>{{a.chinese_detail}}</td>
+                  <td>{{a.env}}</td>
+                  <td>
+                  	<a href="{% url 'one_project' a.id %}" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="详情">详情</a>
+                  	<a href="{% url 'edit_project' a.id %}" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="修改">修改</a>
+                  </td>
+                </tr>
+                {% empty %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

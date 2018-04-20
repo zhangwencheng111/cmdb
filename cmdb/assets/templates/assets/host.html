@@ -1,0 +1,79 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header"><a href="{% url 'hosts' %}">主机信息</a></h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>IP地址:</td>
+                  <td>{{host.ip_addr}}</td>
+                </tr>
+                <tr>
+                  <td>主机名:</td>
+                  <td>{{host.host_name}}</td>
+                </tr>
+                <tr>
+                  <td>主机类型:</td>
+                  <td>{{host.host_type}}</td>
+                </tr>
+                <tr>
+                  <td>cpu:</td>
+                  <td>{{host.cpu}}</td>
+                </tr>
+                <tr>
+                  <td>内存:</td>
+                  <td>{{host.memery}}</td>
+                </tr>
+                <tr>
+                  <td>硬盘:</td>
+                  <td>{{host.hard_disk}}</td>
+                </tr>
+                <tr>
+                  <td>操作系统:{{host.system_type}}</td>
+                  <td>{{host.system_type}}</td>
+                </tr>
+                <tr>
+                  <td>环境:{{host.environment}}</td>
+                  <td>{{host.environment}}</td>
+                </tr>
+                <tr>
+                  <td>虚拟机父主机:</td>
+                  <td>{{host.physical_host}}</td>
+                </tr>
+                <tr>
+                  <td>项目:</td>
+                  <td>
+                  {% for i in host.project.all %}
+	              {{i}}、
+	              {% empty %}
+	              {% endfor %}
+	              </td>
+                </tr>
+                <tr>
+                  <td>网口数:</td>
+	              <td>{{host.eth_number}}</td>
+                </tr>
+                <tr>
+                  <td>状态:</td>
+	              <td>{{host.idle}}</td>
+                </tr>
+                <tr>
+                  <td>价格:</td>
+	              <td>{{host.cost}}</td>
+                </tr>
+                <tr>
+                  <td>备注:</td>
+	              <td>{{host.editor}}</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}

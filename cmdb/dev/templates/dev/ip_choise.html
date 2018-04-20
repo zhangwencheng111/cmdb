@@ -1,0 +1,85 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<div class="ibox-title">
+			<a href="{% url 'dev:show_script' %}" class="text-info pull-center">返回列表</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr role="row">
+						<th class="center sorting_disabled" rowspan="1" colspan="1" aria-label="">
+							<label class="pos-rel">
+								<input type="checkbox" class="ace" name="all">
+									<span class="lbl">
+									</span>
+							</label>
+						</th>
+						<th class="sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending">IP</th>
+						<th class="sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">主机名</th>
+						<th class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
+					</tr>
+				</thead>
+				<tbody id=tb>
+					{% for i in hosts %}
+						<tr role="row" class="odd">
+							<td class="center">
+								<label class="pos-rel">
+									<input type="checkbox" class="ace" name="id" onclick="userCheck(this)">
+										<span class="lbl"></span>
+								</label>
+							</td>
+							<td>
+								{{ i.ip_addr }}
+							</td>
+							<td id="ss"> {{ i.host_name }} </td>
+							<td> up </td>
+					{% empty %}
+							<td>pp</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+</div>
+
+
+{% endblock content %}
+
+{% block jqu %}
+	<script type="text/javascript">
+		$(function () {
+		//全选,设置chheckbox name='all' tbody id=tb
+		$("input[name=all]").click(function () {
+				if (this.checked) {
+						$("#tb :checkbox").prop("checked", true);
+				} else {
+						$("#tb :checkbox").prop("checked", false);
+				}
+		});
+});
+
+function userCheck(ths) {
+		if (ths.checked == false) {
+				$("input[name=all]:checkbox").prop('checked', false);
+		}
+		else {
+				var count = $("input[name='id']:checkbox:checked").length;
+				if (count == $("input[name='id']:checkbox").length) {
+						$("input[name=all]:checkbox").prop("checked", true);
+				}
+		}
+}
+
+$(function(){  
+	var sear=new RegExp('g');   
+	var str = $("#tb").text(); 
+	if(sear.test(str))  
+	{
+		$("#tb").css("color","red"); 
+	}  
+}); 
+	</script>
+{% endblock jqu %}

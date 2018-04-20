@@ -1,0 +1,39 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+{% load bootstrap3 %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Add host</h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+            	<thead>
+                <tr>
+                	<th>
+                		<div class="ibox-title">
+                    	<a href="{% url 'hosts' %}" class="text-info pull-center">返回发现主机列表</a>
+                  	</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              	<td>
+              		<form action="{% url 'add_host' %}" method="post" class="form-horizontal nice-validator n-yellow" autocomplete="off" novalidate="novalidate" role="form">
+	              	{% csrf_token %}
+									{% bootstrap_form form layout='horizontal' %}
+                    <div class="form-group">
+                       <div class="col-sm-4 col-sm-offset-5">
+                           <button class="btn btn-primary" type="submit"> 提交 </button>
+                       </div>
+                    </div>
+									</form>
+              	</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+
